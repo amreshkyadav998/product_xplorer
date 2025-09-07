@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SparklesIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import {MenuIcon, XIcon } from "@heroicons/react/outline";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
