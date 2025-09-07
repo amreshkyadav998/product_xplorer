@@ -7,7 +7,7 @@ import SkeletonCard from "../components/SkeletonCard";
 import { Product, ProductsResponse } from "../types/product";
 import { Listbox } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/solid";
-import { ChevronsUpDown } from "lucide-react"; 
+import { ChevronsUpDown } from "lucide-react";
 
 interface Category {
   slug: string;
@@ -79,8 +79,12 @@ const Home = () => {
       }
 
       setCurrentPage(1);
-    } catch (err: any) {
-      setError(err.message || "Failed to load products. Please try again.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Failed to load products. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
@@ -162,7 +166,7 @@ const Home = () => {
               <ChevronsUpDown className="h-5 w-5 text-gray-500" />
             </Listbox.Button>
             <Listbox.Options className="absolute mt-1 bg-white shadow-lg border border-gray-200 rounded-lg max-h-60 overflow-auto z-10 w-full">
-              <Listbox.Option key="all" value={null} className="cursor-pointer select-none  px-4 py-2 hover:bg-indigo-50">
+              <Listbox.Option key="all" value={null} className="cursor-pointer select-none px-4 py-2 hover:bg-indigo-50">
                 All Categories
               </Listbox.Option>
               {categories.map((category) => (
@@ -219,15 +223,17 @@ const Home = () => {
                 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               >
                 <div className="relative w-full h-full">
-                  {/* Product card container with fixed height to keep uniform size */}
+                  {/* Product card container with fixed height for uniformity */}
                   <div
-                    onClick={() => handleProductClick(product)}
                     className="cursor-pointer bg-white rounded-lg shadow-sm overflow-hidden relative flex flex-col"
-                    style={{ minHeight: "260px" }} // adjust height as needed
+                    style={{ minHeight: "260px" }}
                   >
-                    <ProductCard product={product} />
+                    <ProductCard
+                      product={product}
+                      onClick={() => handleProductClick(product)} // <-- Pass onClick prop
+                    />
 
-                    {/* Small "View Details" icon at top-right */}
+                    {/* "View Details" icon top-right */}
                     <button
                       onClick={() => handleProductClick(product)}
                       className="absolute top-2 right-2 bg-white bg-opacity-80 rounded-full p-1 hover:bg-indigo-100 transition"
@@ -238,6 +244,7 @@ const Home = () => {
                 </div>
               </motion.div>
             ))}
+
 
           </motion.div>
         )}
