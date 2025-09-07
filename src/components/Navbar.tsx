@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {MenuIcon, XIcon } from "@heroicons/react/outline";
+import { Menu, X } from "lucide-react"; // Lucide icons
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,9 +45,9 @@ const Navbar: React.FC = () => {
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? (
-            <XIcon className="w-6 h-6 text-gray-700" />
+            <X size={24} className="text-gray-700" />
           ) : (
-            <MenuIcon className="w-6 h-6 text-gray-700" />
+            <Menu size={24} className="text-gray-700" />
           )}
         </motion.button>
       </div>

@@ -32,7 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
         )}
       </div>
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-800">{product.title}</h3>
+        <h3 className="text-sm font-semibold text-gray-800">{product.title}</h3>
         <p className="text-gray-600">${product.price.toFixed(2)}</p>
       </div>
     </motion.div>
